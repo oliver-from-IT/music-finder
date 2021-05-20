@@ -17,7 +17,7 @@ class Main():
     def __init__(self):
 
         os.environ['SPOTIPY_CLIENT_ID']='68424f2fdeae4d95a19f0f0e2f1b1221'
-        os.environ['SPOTIPY_CLIENT_SECRET']=''
+        os.environ['SPOTIPY_CLIENT_SECRET']='3545842018874cba81a12e536dbce58e'
 
         auth_manager = SpotifyClientCredentials()
         self.sp = spotipy.Spotify(auth_manager=auth_manager)
