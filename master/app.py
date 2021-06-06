@@ -1,6 +1,6 @@
 # Music Finder
 # Oliver Spain
-# ver 1.1.0
+# ver 1.2.1
 
 import os
 import spotipy
@@ -54,7 +54,10 @@ class Main():
             return [False, 4, amount]
 
         print(f'Amount of recommendations: {amount}\nSelected genres: {required_genres}')
-        results = self.sp.recommendations(seed_genres=required_genres, limit=amount)
+        try:
+            results = self.sp.recommendations(seed_genres=required_genres, limit=amount)
+        except:
+            return [True]
 
         for tracks in results['tracks']:
             track = str(tracks['name'])
@@ -163,13 +166,14 @@ class App():
         recommendation_amount = int(self.amount_var.get())
 
         recommendations = Main().get_recommendations(selected_genres, recommendation_amount)
-        if recommendations[0] == False:
+        if recommendations[0] == True:
+            print(f'Unable to perform search request')
+            return
+        elif recommendations[0] == False:
             print(f'Error!')
             condition = [recommendations[1], recommendations[2]]
             self.display_popup(condition)
             return
-        else:
-            pass
 
         self.output_treeview.delete(*self.output_treeview.get_children())
 
